@@ -1,0 +1,40 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:ex="http://example.org/bookrec#">
+  <rdf:Description rdf:about="http://example.org/bookrec#Bob">
+    <ex:prefersTheme rdf:resource="http://example.org/bookrec#Mystery"/>
+    <ex:hasReadingLevel rdf:resource="http://example.org/bookrec#Beginner"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/bookrec#Alice">
+    <ex:prefersTheme rdf:resource="http://example.org/bookrec#ScienceFiction"/>
+    <ex:hasReadingLevel rdf:resource="http://example.org/bookrec#Intermediate"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/bookrec#Dune">
+    <ex:suitableForLevel rdf:resource="http://example.org/bookrec#Advanced"/>
+    <ex:hasTheme rdf:resource="http://example.org/bookrec#Fantasy"/>
+    <ex:hasTheme rdf:resource="http://example.org/bookrec#ScienceFiction"/>
+    <ex:hasAuthor>Frank Herbert</ex:hasAuthor>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/bookrec#TheSilentPatient">
+    <ex:suitableForLevel rdf:resource="http://example.org/bookrec#Intermediate"/>
+    <ex:hasTheme rdf:resource="http://example.org/bookrec#Murder"/>
+    <ex:hasTheme rdf:resource="http://example.org/bookrec#Mystery"/>
+    <ex:hasAuthor>Alex Michaelides</ex:hasAuthor>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/bookrec#LordoftheRings">
+    <ex:suitableForLevel rdf:resource="http://example.org/bookrec#Advanced"/>
+    <ex:hasTheme rdf:resource="http://example.org/bookrec#Fantasy"/>
+    <ex:hasAuthor>Ionel</ex:hasAuthor>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/bookrec#HungerGames">
+    <ex:suitableForLevel rdf:resource="http://example.org/bookrec#Beginner"/>
+    <ex:hasTheme rdf:resource="http://example.org/bookrec#Fantasy"/>
+    <ex:hasTheme rdf:resource="http://example.org/bookrec#ScienceFiction"/>
+    <ex:hasAuthor>Suzanne Collins</ex:hasAuthor>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/bookrec#HarryPotter">
+    <ex:suitableForLevel rdf:resource="http://example.org/bookrec#Advanced"/>
+    <ex:hasTheme rdf:resource="http://example.org/bookrec#Fantasy"/>
+    <ex:hasAuthor>Gigel</ex:hasAuthor>
+  </rdf:Description>
+</rdf:RDF>
