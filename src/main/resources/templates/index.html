@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Recommendation System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="/">Semantic Web Library</a>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <h1 class="mb-4">Dashboard</h1>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Available Books</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        <li th:each="book : ${books}" class="list-group-item d-flex justify-content-between align-items-center">
+                            <span th:text="${book}">Book Name</span>
+                            <a th:href="@{/book/{name}(name=${book})}" class="btn btn-sm btn-outline-primary">View Details</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card shadow-sm">
+                <div class="card-header bg-secondary text-white">
+                    <h5 class="mb-0">Visualize RDF Graph</h5>
+                </div>
+                <div class="card-body">
+                    <form action="/upload-rdf" method="POST" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <input class="form-control" type="file" name="file" accept=".rdf,.xml" required />
+                        </div>
+                        <button type="submit" class="btn btn-secondary w-100">Generate Graph (JUNG)</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">Add a New Book</h5>
+                </div>
+                <div class="card-body">
+                    <form action="/add-book" method="POST">
+                        <div class="mb-3">
+                            <label class="form-label">Book Name</label>
+                            <input type="text" name="bookName" class="form-control" placeholder="e.g. HarryPotter" required />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Author</label>
+                            <input type="text" name="author" class="form-control" placeholder="e.g. J.K. Rowling" required />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Theme</label>
+                            <select name="theme" class="form-select">
+                                <option value="Fantasy">Fantasy</option>
+                                <option value="ScienceFiction">Science Fiction</option>
+                                <option value="Mystery">Mystery</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Reading Level</label>
+                            <select name="readingLevel" class="form-select">
+                                <option value="Beginner">Beginner</option>
+                                <option value="Intermediate">Intermediate</option>
+                                <option value="Advanced">Advanced</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-success w-100">Add to System</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card shadow-sm">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0">Update Reading Level</h5>
+                </div>
+                <div class="card-body">
+                    <form action="/modify-book" method="POST">
+                        <div class="mb-3">
+                            <label class="form-label">Existing Book Name</label>
+                            <select name="bookName" class="form-select">
+                                <option th:each="book : ${books}" th:value="${book}" th:text="${book}"></option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">New Reading Level</label>
+                            <select name="newReadingLevel" class="form-select">
+                                <option value="Beginner">Beginner</option>
+                                <option value="Intermediate">Intermediate</option>
+                                <option value="Advanced">Advanced</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-warning w-100">Update Level</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button id="chat-toggle" class="btn btn-primary shadow" onclick="toggleChat()">💬</button>
+
+<div id="chat-widget" class="card shadow">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+        <h6 class="mb-0">RAG Assistant</h6>
+        <button class="btn-close btn-close-white" onclick="toggleChat()"></button>
+    </div>
+    <div id="chat-messages" class="card-body chat-messages d-flex flex-column gap-2">
+        <div class="msg-bot">Hello! How can I help you today with the books?</div>
+    </div>
+    <div id="chat-starters" class="card-body border-top bg-light p-2 d-flex flex-column gap-1">
+
+    </div>
+    <div class="card-footer">
+        <div class="input-group">
+            <input type="text" id="chat-input" class="form-control form-control-sm" placeholder="Write a question..." onkeypress="handleKeyPress(event)">
+            <button class="btn btn-primary btn-sm" onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+</div>
+
+<style>
+    #chat-widget { position: fixed; bottom: 80px; right: 20px; width: 350px; z-index: 1000; display: none; }
+    #chat-toggle { position: fixed; bottom: 20px; right: 20px; z-index: 1001; border-radius: 50%; width: 50px; height: 50px; font-size: 24px; display: flex; align-items: center; justify-content: center; }
+    .chat-messages { height: 250px; overflow-y: auto; font-size: 0.9rem; }
+    .msg-user { align-self: flex-end; background-color: #0d6efd; color: white; padding: 8px 12px; border-radius: 15px 15px 0 15px; max-width: 85%; }
+    .msg-bot { align-self: flex-start; background-color: #e9ecef; color: black; padding: 8px 12px; border-radius: 15px 15px 15px 0; max-width: 85%; }
+    .starter-btn { font-size: 0.8rem; text-align: left; cursor: pointer; white-space: normal; }
+</style>
+
+<script>
+    function toggleChat() {
+        const widget = document.getElementById('chat-widget');
+        widget.style.display = widget.style.display === 'none' || widget.style.display === '' ? 'flex' : 'none';
+        if (widget.style.display === 'flex') loadStarters();
+    }
+
+    function loadStarters() {
+        const startersDiv = document.getElementById('chat-starters');
+        startersDiv.innerHTML = '<small class="text-muted fw-bold">Suggestions based on context:</small>';
+
+        const path = window.location.pathname;
+        let starters = [];
+
+        if (path === '/') {
+            starters = [
+                "What is a book that I am most likely to enjoy from this list?",
+                "What book has the author Frank Herbert and the theme Science Fiction?",
+                "Are there any books suitable for Beginner readers?"
+            ];
+        }
+        else if (path.startsWith('/book/')) {
+            const bookName = decodeURIComponent(path.split('/').pop());
+            starters = [
+                `Who is the author of ${bookName}?`,
+                `What are the main themes of ${bookName}?`,
+                `Is ${bookName} a good fit for Advanced readers?`
+            ];
+        }
+
+        starters.forEach(q => {
+            const btn = document.createElement('button');
+            btn.className = 'btn btn-sm btn-outline-secondary starter-btn';
+            btn.innerText = q;
+            btn.onclick = () => { document.getElementById('chat-input').value = q; sendMessage(); };
+            startersDiv.appendChild(btn);
+        });
+    }
+
+    async function sendMessage() {
+        const input = document.getElementById('chat-input');
+        const message = input.value.trim();
+        if (!message) return;
+
+        document.getElementById('chat-starters').style.display = 'none';
+
+        appendMessage('user', message);
+        input.value = '';
+
+        const typingId = appendMessage('bot', 'Thinking...');
+
+        try {
+            const response = await fetch('/api/chat/ask', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ question: message })
+            });
+            const answer = await response.text();
+            document.getElementById(typingId).innerText = answer;
+        } catch (e) {
+            document.getElementById(typingId).innerText = "Error connecting with AI.";
+        }
+    }
+
+    function appendMessage(sender, text) {
+        const msgDiv = document.createElement('div');
+        msgDiv.className = sender === 'user' ? 'msg-user' : 'msg-bot';
+        msgDiv.id = 'msg-' + Date.now();
+        msgDiv.innerText = text;
+        const container = document.getElementById('chat-messages');
+        container.appendChild(msgDiv);
+        container.scrollTop = container.scrollHeight;
+        return msgDiv.id;
+    }
+
+    function handleKeyPress(e) {
+        if (e.key === 'Enter') sendMessage();
+    }
+</script>
+
+</body>
+</html>
