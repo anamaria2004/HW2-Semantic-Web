@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://example.org/bookrec/ontology#"
+     xml:base="http://example.org/bookrec/ontology"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:ex="http://example.org/bookrec/ontology#">
+
+    <owl:Ontology rdf:about="http://example.org/bookrec/ontology"/>
+
+    <owl:Class rdf:about="#User"/>
+    <owl:Class rdf:about="#Book"/>
+    <owl:Class rdf:about="#Theme"/>
+    <owl:Class rdf:about="#ReadingLevel"/>
+
+    <owl:ObjectProperty rdf:about="#hasReadingLevel">
+        <rdfs:domain rdf:resource="#User"/>
+        <rdfs:range rdf:resource="#ReadingLevel"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#prefersTheme">
+        <rdfs:domain rdf:resource="#User"/>
+        <rdfs:range rdf:resource="#Theme"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#hasTheme">
+        <rdfs:domain rdf:resource="#Book"/>
+        <rdfs:range rdf:resource="#Theme"/>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#suitableForLevel">
+        <rdfs:domain rdf:resource="#Book"/>
+        <rdfs:range rdf:resource="#ReadingLevel"/>
+    </owl:ObjectProperty>
+
+    <owl:NamedIndividual rdf:about="#ScienceFiction">
+        <rdf:type rdf:resource="#Theme"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#Fantasy">
+        <rdf:type rdf:resource="#Theme"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#Mystery">
+        <rdf:type rdf:resource="#Theme"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#Murder">
+        <rdf:type rdf:resource="#Theme"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="#Beginner">
+        <rdf:type rdf:resource="#ReadingLevel"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#Intermediate">
+        <rdf:type rdf:resource="#ReadingLevel"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#Advanced">
+        <rdf:type rdf:resource="#ReadingLevel"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="#Alice">
+        <rdf:type rdf:resource="#User"/>
+        <hasReadingLevel rdf:resource="#Intermediate"/>
+        <prefersTheme rdf:resource="#ScienceFiction"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#Bob">
+        <rdf:type rdf:resource="#User"/>
+        <hasReadingLevel rdf:resource="#Beginner"/>
+        <prefersTheme rdf:resource="#Mystery"/>
+    </owl:NamedIndividual>
+
+    <owl:NamedIndividual rdf:about="#Dune">
+        <rdf:type rdf:resource="#Book"/>
+        <hasTheme rdf:resource="#ScienceFiction"/>
+        <hasTheme rdf:resource="#Fantasy"/>
+        <suitableForLevel rdf:resource="#Advanced"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#TheSilentPatient">
+        <rdf:type rdf:resource="#Book"/>
+        <hasTheme rdf:resource="#Mystery"/>
+        <hasTheme rdf:resource="#Murder"/>
+        <suitableForLevel rdf:resource="#Intermediate"/>
+    </owl:NamedIndividual>
+    <owl:NamedIndividual rdf:about="#HungerGames">
+        <rdf:type rdf:resource="#Book"/>
+        <hasTheme rdf:resource="#ScienceFiction"/>
+        <hasTheme rdf:resource="#Fantasy"/>
+        <suitableForLevel rdf:resource="#Beginner"/>
+    </owl:NamedIndividual>
+
+</rdf:RDF>
