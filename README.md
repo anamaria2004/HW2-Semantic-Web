@@ -1,5 +1,7 @@
 # Semantic Web Book Recommendation System & AI Chatbot
 
+github link: https://github.com/anamaria2004/HW2-Semantic-Web/edit/main/README.md
+
 A modern, full-stack Book Recommendation System that bridges traditional **Semantic Web technologies** (RDF, OWL, SPARQL) with **Generative AI** (RAG pipeline via Google Gemini). 
 
 This project was built to demonstrate how semantic data can be queried logically and consumed by Large Language Models to provide accurate, hallucination-free, and highly contextual user recommendations.
@@ -66,14 +68,14 @@ Open your browser and navigate to: `http://localhost:8080`
 
 ## Contributors
 
-### 🧑‍💻 Comeaga Ana-Maria (Backend & AI Architecture)
+###  Comeaga Ana-Maria (Backend & AI Architecture)
 * **Project Setup:** Initialized the Spring Boot framework, dependency mapping, and structured the internal data layers.
 * **Semantic Database Core:** Developed the primary components of `RdfService.java` utilizing the Apache Jena API to fetch, parse, and build model instances.
 * **Knowledge Engineering:** Conceptualized and built the `book_ontology.owl` core semantics, classes, and objective relationships.
 * **AI Retrieval Pipeline:** Designed the entire Retrieval-Augmented Generation (RAG) backend engine in `ChatbotService.java` powered by LangChain4j and in-memory vector indexing.
 * **Data Persistence Layer:** Finalized the automated, persistent writing system translating runtime database modifications cleanly back into the raw RDF repository file.
 
-### 🧑‍💻 Popa Ruxandra-Georgiana (Frontend Integration & Semantic Inquiries)
+###  Popa Ruxandra-Georgiana (Frontend Integration & Semantic Inquiries)
 * **Routing Controllers:** Formulated the programmatic routing and data model mappings inside `BookController.java` to support Thymeleaf synchronization.
 * **User Interface Design:** Programmed the entire UI core structure (`index.html`, `book-info.html`) ensuring responsiveness, table structuring, and data input validation.
 * **Graph Architecture:** Evaluated and exported the system's structure using GraphDB, creating full semantic diagrams and troubleshooting data synchronization limits.
